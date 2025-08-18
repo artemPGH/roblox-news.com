@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Политика конфиденциальности — Roblox News</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-theme="light">
+  <header class="site-header">
+    <div class="container header-top">
+      <a class="logo-title" href="index.html">
+        <img src="images/roblox-logo.png" alt="" width="40" height="40"/><h1>Roblox News</h1>
+      </a>
+      <nav class="main-nav"><ul>
+        <li><a href="index.html#news" class="nav-link">Новости</a></li>
+        <li><a href="index.html#game" class="nav-link">Игры</a></li>
+        <li><a href="index.html#about" class="nav-link">О нас</a></li>
+        <li><a href="contact.html" class="nav-link">Контакты</a></li>
+      </ul></nav>
+      <a class="btn" href="index.html">← На главную</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Политика конфиденциальности</h2>
+      <p>Мы не собираем персональные данные пользователей, кроме информации, которую вы добровольно отправляете нам (например, по e-mail).</p>
+      <h3>Файлы cookies</h3>
+      <p>Сайт может использовать технические cookies для корректной работы и аналитики посещаемости (без персональной идентификации).</p>
+      <h3>Сторонние ссылки</h3>
+      <p>На сайте есть ссылки на сторонние ресурсы (например, страницы игр). Мы не отвечаем за их политику конфиденциальности.</p>
+      <h3>Связаться с нами</h3>
+      <p>По вопросам конфиденциальности напишите на <a href="mailto:admin@example.com">admin@example.com</a>.</p>
+      <p class="meta">Обновлено: <span id="d"></span></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="y"></span> Roblox News</div>
+      <div class="footer-links">
+        <a href="terms.html">Условия</a>
+        <a href="contact.html">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('d').textContent = new Date().toLocaleDateString('ru-RU');
+  </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Условия использования — Roblox News</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body data-theme="light">
+  <header class="site-header">
+    <div class="container header-top">
+      <a class="logo-title" href="index.html">
+        <img src="images/roblox-logo.png" alt="" width="40" height="40"/><h1>Roblox News</h1>
+      </a>
+      <nav class="main-nav"><ul>
+        <li><a href="index.html#news" class="nav-link">Новости</a></li>
+        <li><a href="index.html#game" class="nav-link">Игры</a></li>
+        <li><a href="index.html#about" class="nav-link">О нас</a></li>
+        <li><a href="privacy.html" class="nav-link">Политика</a></li>
+      </ul></nav>
+      <a class="btn" href="index.html">← На главную</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Условия использования</h2>
+      <p>Материалы сайта предоставляются «как есть» и предназначены для некоммерческого информирования. Используя сайт, вы соглашаетесь не нарушать законы вашей страны и правила Roblox.</p>
+      <ul>
+        <li>Перепечатка материалов возможна со ссылкой на источник.</li>
+        <li>Мы можем обновлять или удалять материалы без предварительного уведомления.</li>
+        <li>Все товарные знаки принадлежат их владельцам.</li>
+      </ul>
+      <p class="meta">Обновлено: <span id="d"></span></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© <span id="y"></span> Roblox News</div>
+      <div class="footer-links">
+        <a href="privacy.html">Политика</a>
+        <a href="contact.html">Контакты</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    document.getElementById('d').textContent = new Date().toLocaleDateString('ru-RU');
+  </script>
+</body>
+</html>

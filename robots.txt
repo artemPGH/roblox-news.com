@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://artempgh.github.io/roblox-news.com/sitemap.xml
