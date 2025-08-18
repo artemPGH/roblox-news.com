@@ -20,7 +20,6 @@
   const ids = links.map(a => a.getAttribute('href')).filter(h => h.startsWith('#')).map(h => h.slice(1));
   const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
   if (!sections.length) return;
-
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -28,7 +27,6 @@
       }
     });
   }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
-
   sections.forEach(s => io.observe(s));
 })();
 
@@ -40,6 +38,13 @@
   });
   btn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 })();
+
+/* ===== Хелпер для абсолютных путей (важно для GitHub Pages подкаталога) ===== */
+function withBase(path) {
+  // base = "https://artempgh.github.io/roblox-news.com/" на проде
+  const base = location.origin + (location.pathname.split('/').slice(0, -1).join('/') + '/');
+  try { return new URL(path, base).href; } catch { return path; }
+}
 
 /* ===== РЕНДЕР НОВОСТЕЙ ===== */
 const PAGE_SIZE = 6;
@@ -85,18 +90,13 @@ async function loadPosts(){
       <div class="card">
         <h3>Новости недоступны</h3>
         <p>Файл <code>data/posts.json</code> или <code>posts.json</code> не найден или повреждён.</p>
-        <p>Проверь: 1) что файл существует в репозитории; 2) что JSON валидный (после последнего объекта нет запятой).</p>
       </div>`;
     return;
   }
 
-  try{
-    posts.sort((a,b) => new Date(b.date) - new Date(a.date));
-  }catch(_){}
-
+  try{ posts.sort((a,b) => new Date(b.date) - new Date(a.date)); }catch(_){}
   ALL_POSTS = posts;
 
-  // дата "последнее обновление"
   const last = posts[0]?.date;
   if (last) document.getElementById('updateDate').textContent =
     new Date(last).toLocaleDateString('ru-RU');
@@ -107,7 +107,7 @@ async function loadPosts(){
   handleHashOpen(posts);
 }
 
-/* Фильтры категорий */
+/* Фильтры */
 function buildFilters(posts){
   const filters = document.getElementById('filters');
   const cats = Array.from(new Set(posts.map(p => p.category))).filter(Boolean).sort();
@@ -117,7 +117,6 @@ function buildFilters(posts){
   all.dataset.cat = 'all';
   filters.innerHTML = '';
   filters.appendChild(all);
-
   cats.forEach(c => {
     const b = document.createElement('button');
     b.className = 'chip';
@@ -128,16 +127,14 @@ function buildFilters(posts){
 
   filters.addEventListener('click', (e) => {
     const btn = e.target.closest('.chip'); if (!btn) return;
-    CURRENT_CATEGORY = btn.dataset.cat;
-    CURRENT_PAGE = 1;
+    CURRENT_CATEGORY = btn.dataset.cat; CURRENT_PAGE = 1;
     [...filters.querySelectorAll('.chip')].forEach(el => el.classList.toggle('active', el===btn));
     render();
   });
 
   const input = document.getElementById('searchInput');
   input.addEventListener('input', () => {
-    CURRENT_QUERY = input.value.trim();
-    CURRENT_PAGE = 1;
+    CURRENT_QUERY = input.value.trim(); CURRENT_PAGE = 1;
     render();
     const hashQ = CURRENT_QUERY ? `#q=${encodeURIComponent(CURRENT_QUERY)}` : '';
     history.replaceState(null, '', location.pathname + location.search + hashQ);
@@ -194,10 +191,12 @@ function render(){
 
 function cardTemplate(p){
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
+  const src = withBase(p.image || '');
+  const fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'><rect width='100%' height='100%' fill='%23ddd'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='%23666'>no image</text></svg>";
   return `
   <article class="card">
-    <img src="${p.image}" alt="${escapeHtml(p.title)}" loading="lazy"
-         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22240%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22%23666%22>no image</text></svg>';">
+    <img src="${src}" alt="${escapeHtml(p.title)}" loading="lazy"
+         onerror="console.error('image 404:', this.src); this.onerror=null; this.src='${fallback}';">
     <div class="card-body">
       <h3>${escapeHtml(p.title)}</h3>
       <div class="meta">${[d, p.category && prettyCat(p.category)].filter(Boolean).join(' • ')}</div>
@@ -259,12 +258,52 @@ function openPost(p){
   if (!p) return;
   const modal = ensureModal();
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
+  const src = withBase(p.image || '');
   const html = `
-    <img src="${p.image}" alt="${escapeHtml(p.title)}"
-         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2230%22 fill=%22%23666%22>no image</text></svg>';">
+    <img src="${src}" alt="${escapeHtml(p.title)}"
+         onerror="console.error('image 404:', this.src); this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2230%22 fill=%22%23666%22>no image</text></svg>';">
     <h3>${escapeHtml(p.title)}</h3>
     <div class="meta">${[d, p.category && prettyCat(p.category)].filter(Boolean).join(' • ')}</div>
     <div class="content">${p.content || ''}</div>
     <p class="meta">Теги: ${(p.tags||[]).map(escapeHtml).join(', ') || '—'}</p>
   `;
   modal.querySelector('.modal__body').innerHTML = html;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+
+  if (!location.hash.startsWith('#post/')){
+    location.hash = '#post/' + encodeURIComponent(p.id);
+  }
+}
+
+function handleHashOpen(posts){
+  function check(){
+    if (location.hash.startsWith('#post/')){
+      const id = decodeURIComponent(location.hash.replace('#post/',''));
+      const p = posts.find(x => x.id === id);
+      if (p) openPost(p);
+    }
+  }
+  window.addEventListener('hashchange', check);
+  check();
+}
+
+function wireSearchFromURL(){
+  if (location.hash.startsWith('#q=')){
+    const q = decodeURIComponent(location.hash.replace('#q=',''));
+    const input = document.getElementById('searchInput');
+    input.value = q;
+    CURRENT_QUERY = q;
+    render();
+  }
+}
+
+/* ===== УТИЛИТЫ ===== */
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+function prettyCat(c){
+  const map = { updates:'Обновления', events:'События', guides:'Гайды', news:'Новости',
+    Studio:'Studio','Безопасность':'Безопасность','Маркетплейс':'Маркетплейс',
+    'Платформа':'Платформа','Реклама':'Реклама','Сообщества':'Сообщества','Локализация':'Локализация',
+    'Обновления':'Обновления','События':'События' };
+  return map[c] || c;
+}
