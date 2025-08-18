@@ -196,10 +196,11 @@ function cardTemplate(p){
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
   return `
   <article class="card">
-    <img src="${p.image}" alt="${escapeHtml(p.title)}" loading="lazy"/>
+    <img src="${p.image}" alt="${escapeHtml(p.title)}" loading="lazy"
+         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22400%22 height=%22240%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2220%22 fill=%22%23666%22>no image</text></svg>';">
     <div class="card-body">
       <h3>${escapeHtml(p.title)}</h3>
-      <div class="meta">${d} ${p.category ? '• ' + escapeHtml(prettyCat(p.category)) : ''}</div>
+      <div class="meta">${[d, p.category && prettyCat(p.category)].filter(Boolean).join(' • ')}</div>
       <p>${escapeHtml(p.excerpt || '')}</p>
       <a href="#post/${encodeURIComponent(p.id)}" class="btn js-read" data-id="${p.id}">Читать дальше</a>
     </div>
@@ -215,7 +216,7 @@ function paginationTemplate(total, current){
   return html;
 }
 
-/* Спот обновлений (берём самую свежую запись, где category = updates/Обновления) */
+/* Спот обновлений */
 function renderUpdatesSpot(posts){
   const box = document.getElementById('updatesSpot');
   if (!box) return;
@@ -259,46 +260,11 @@ function openPost(p){
   const modal = ensureModal();
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
   const html = `
-    <img src="${p.image}" alt="${escapeHtml(p.title)}"/>
+    <img src="${p.image}" alt="${escapeHtml(p.title)}"
+         onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2230%22 fill=%22%23666%22>no image</text></svg>';">
     <h3>${escapeHtml(p.title)}</h3>
     <div class="meta">${[d, p.category && prettyCat(p.category)].filter(Boolean).join(' • ')}</div>
     <div class="content">${p.content || ''}</div>
     <p class="meta">Теги: ${(p.tags||[]).map(escapeHtml).join(', ') || '—'}</p>
   `;
   modal.querySelector('.modal__body').innerHTML = html;
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
-
-  if (!location.hash.startsWith('#post/')){
-    location.hash = '#post/' + encodeURIComponent(p.id);
-  }
-}
-
-function handleHashOpen(posts){
-  function check(){
-    if (location.hash.startsWith('#post/')){
-      const id = decodeURIComponent(location.hash.replace('#post/',''));
-      const p = posts.find(x => x.id === id);
-      if (p) openPost(p);
-    }
-  }
-  window.addEventListener('hashchange', check);
-  check();
-}
-
-function wireSearchFromURL(){
-  if (location.hash.startsWith('#q=')){
-    const q = decodeURIComponent(location.hash.replace('#q=',''));
-    const input = document.getElementById('searchInput');
-    input.value = q;
-    CURRENT_QUERY = q;
-    render();
-  }
-}
-
-/* ===== УТИЛИТЫ ===== */
-function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-function prettyCat(c){
-  const map = { updates:'Обновления', events:'Ивенты', guides:'Гайды', news:'Новости' };
-  return map[c] || c; // поддерживаем и русские, и английские категории
-}
