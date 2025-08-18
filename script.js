@@ -39,14 +39,33 @@
   btn.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 })();
 
-/* ===== Хелпер для абсолютных путей (важно для GitHub Pages подкаталога) ===== */
+/* ===== База для абсолютных путей (важно для GitHub Pages) ===== */
 function withBase(path) {
-  // base = "https://artempgh.github.io/roblox-news.com/" на проде
+  // Превращаем "images/..." в абсолютный URL сайта, чтобы не сломалось в подкаталоге.
   const base = location.origin + (location.pathname.split('/').slice(0, -1).join('/') + '/');
   try { return new URL(path, base).href; } catch { return path; }
 }
 
-/* ===== РЕНДЕР НОВОСТЕЙ ===== */
+/* ===== Авто-обложки по категориям + дефолт ===== */
+function getCover(p) {
+  const map = {
+    updates: 'images/cover-updates.png',
+    'Обновления': 'images/cover-updates.png',
+    events: 'images/cover-events.png',
+    'События': 'images/cover-events.png',
+    guides: 'images/cover-guides.png',
+    'Гайды': 'images/cover-guides.png',
+    news: 'images/cover-news.png',
+    'Новости': 'images/cover-news.png'
+  };
+  // 1) Если у поста задано p.image — используем его
+  // 2) иначе — картинку категории
+  // 3) иначе — общую заглушку
+  const localPath = p.image || map[p.category] || 'images/news-image1.png';
+  return withBase(localPath);
+}
+
+/* ===== ДАННЫЕ ===== */
 const PAGE_SIZE = 6;
 let ALL_POSTS = [];
 let CURRENT_CATEGORY = 'all';
@@ -97,6 +116,7 @@ async function loadPosts(){
   try{ posts.sort((a,b) => new Date(b.date) - new Date(a.date)); }catch(_){}
   ALL_POSTS = posts;
 
+  // "Последнее обновление"
   const last = posts[0]?.date;
   if (last) document.getElementById('updateDate').textContent =
     new Date(last).toLocaleDateString('ru-RU');
@@ -107,7 +127,7 @@ async function loadPosts(){
   handleHashOpen(posts);
 }
 
-/* Фильтры */
+/* Фильтры категорий + поиск */
 function buildFilters(posts){
   const filters = document.getElementById('filters');
   const cats = Array.from(new Set(posts.map(p => p.category))).filter(Boolean).sort();
@@ -117,6 +137,7 @@ function buildFilters(posts){
   all.dataset.cat = 'all';
   filters.innerHTML = '';
   filters.appendChild(all);
+
   cats.forEach(c => {
     const b = document.createElement('button');
     b.className = 'chip';
@@ -191,7 +212,7 @@ function render(){
 
 function cardTemplate(p){
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
-  const src = withBase(p.image || '');
+  const src = getCover(p);
   const fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='240'><rect width='100%' height='100%' fill='%23ddd'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='%23666'>no image</text></svg>";
   return `
   <article class="card">
@@ -258,7 +279,7 @@ function openPost(p){
   if (!p) return;
   const modal = ensureModal();
   const d = p.date ? new Date(p.date).toLocaleDateString('ru-RU') : '';
-  const src = withBase(p.image || '');
+  const src = getCover(p);
   const html = `
     <img src="${src}" alt="${escapeHtml(p.title)}"
          onerror="console.error('image 404:', this.src); this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect width=%22100%25%22 height=%22100%25%22 fill=%22%23ddd%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-size=%2230%22 fill=%22%23666%22>no image</text></svg>';">
