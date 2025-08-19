@@ -58,12 +58,17 @@ function getCover(p) {
     news: 'images/cover-news.png',
     'Новости': 'images/cover-news.png'
   };
-  // 1) Если у поста задано p.image — используем его
-  // 2) иначе — картинку категории
-  // 3) иначе — общую заглушку
-  const localPath = p.image || map[p.category] || 'images/news-image1.png';
-  return withBase(localPath);
+  const defaultImg = 'images/news-image1.png';
+  const img = (p.image || '').trim();
+
+  // Если в JSON стоит именно наша заглушка news-image1.* — считаем, что картинки нет
+  const looksLikePlaceholder = /news-image1\.(png|jpg|jpeg|webp)$/i.test(img);
+  const effective = (!img || looksLikePlaceholder) ? '' : img;
+
+  const chosen = effective || map[p.category] || defaultImg;
+  return withBase(chosen);
 }
+
 
 /* ===== ДАННЫЕ ===== */
 const PAGE_SIZE = 6;
@@ -328,3 +333,4 @@ function prettyCat(c){
     'Обновления':'Обновления','События':'События' };
   return map[c] || c;
 }
+
