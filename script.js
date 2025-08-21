@@ -334,3 +334,123 @@ function prettyCat(c){
   return map[c] || c;
 }
 
+/* ===== POPULAR GAMES (dynamic) ===== */
+
+const GAME_PAGE_SIZE = 12;
+let ALL_GAMES = [];
+let GAME_QUERY = '';
+let GAME_GENRE = 'Все';
+let GAME_SORT = 'rank';
+let GAME_PAGE = 1;
+
+(async function initGames(){
+  try {
+    const res = await fetch('data/games.json?_=' + Date.now());
+    ALL_GAMES = await res.json();
+  } catch (e) {
+    console.error('games.json load error', e);
+    ALL_GAMES = [];
+  }
+  buildGameFilters(); // чипы жанров
+  bindGamesControls(); // поиск/сорт
+  renderGames();       // первый рендер
+})();
+
+function bindGamesControls(){
+  const s = document.getElementById('gameSearch');
+  const sort = document.getElementById('gameSort');
+  s.addEventListener('input', () => { GAME_QUERY = s.value.trim(); GAME_PAGE = 1; renderGames(); });
+  sort.addEventListener('change', () => { GAME_SORT = sort.value; GAME_PAGE = 1; renderGames(); });
+}
+
+function buildGameFilters(){
+  const wrap = document.getElementById('gameFilters');
+  const genres = ['Все', ...Array.from(new Set(ALL_GAMES.map(g => g.genre).filter(Boolean))).sort()];
+  wrap.innerHTML = '';
+  genres.forEach(g => {
+    const b = document.createElement('button');
+    b.className = 'chip' + (g === 'Все' ? ' active' : '');
+    b.textContent = g;
+    b.addEventListener('click', () => {
+      GAME_GENRE = g; GAME_PAGE = 1;
+      [...wrap.children].forEach(c => c.classList.remove('active')); b.classList.add('active');
+      renderGames();
+    });
+    wrap.appendChild(b);
+  });
+}
+
+function renderGames(){
+  let arr = ALL_GAMES.slice();
+
+  // фильтр по жанру
+  if (GAME_GENRE !== 'Все') arr = arr.filter(g => g.genre === GAME_GENRE);
+
+  // поиск
+  if (GAME_QUERY){
+    const q = GAME_QUERY.toLowerCase();
+    arr = arr.filter(g =>
+      g.title.toLowerCase().includes(q) ||
+      (g.tags || []).join(' ').toLowerCase().includes(q)
+    );
+  }
+
+  // сортировка
+  if (GAME_SORT === 'alpha') arr.sort((a,b)=> a.title.localeCompare(b.title));
+  else arr.sort((a,b)=> (b.players_estimate||0)-(a.players_estimate||0));
+
+  // пагинация
+  const totalPages = Math.max(1, Math.ceil(arr.length / GAME_PAGE_SIZE));
+  GAME_PAGE = Math.min(GAME_PAGE, totalPages);
+  const start = (GAME_PAGE - 1) * GAME_PAGE_SIZE;
+  const pageItems = arr.slice(start, start + GAME_PAGE_SIZE);
+
+  // отрисовка карточек
+  const grid = document.getElementById('gameGrid');
+  grid.innerHTML = pageItems.map(gameCardTpl).join('');
+
+  // кнопки
+  const pager = document.getElementById('gamePager');
+  pager.innerHTML = (totalPages > 1)
+    ? Array.from({length: totalPages}, (_,i)=>i+1).map(n =>
+        `<a href="#" data-p="${n}" class="${n===GAME_PAGE?'active':''}">${n}</a>`).join('')
+    : '';
+
+  pager.querySelectorAll('a').forEach(a=>{
+    a.addEventListener('click',(e)=>{ e.preventDefault(); GAME_PAGE = parseInt(a.dataset.p,10); renderGames(); window.scrollTo({top: pager.offsetTop - 140, behavior:'smooth'}); });
+  });
+}
+
+function gameCardTpl(g){
+  const fallback = "data:image/svg+xml;utf8," + encodeURIComponent(`
+    <svg xmlns='http://www.w3.org/2000/svg' width='800' height='450'>
+      <defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='#ff4d4d'/><stop offset='1' stop-color='#ff8a00'/></linearGradient></defs>
+      <rect width='100%' height='100%' fill='url(#g)'/>
+      <text x='50%' y='50%' fill='white' font-family='Arial,Helvetica,sans-serif' font-size='42' text-anchor='middle' dominant-baseline='middle'>RBX GAME</text>
+    </svg>
+  `);
+  const img = (g.image && g.image.trim()) || '';
+  const imgUrl = img ? img : fallback;
+  const pe = g.players_estimate ? ` · ~${formatPlayers(g.players_estimate)} онл.` : '';
+  return `
+    <article class="game-card">
+      <img src="${imgUrl}" alt="${escapeHtml(g.title)}" loading="lazy"
+           onerror="this.onerror=null; this.src='${fallback}';">
+      <div class="body">
+        <h3>${escapeHtml(g.title)}</h3>
+        <div class="game-meta">${escapeHtml(g.genre || 'Игра')}${pe}</div>
+        <div class="tag-row">${(g.tags||[]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>
+        <div class="game-actions">
+          <a class="btn-play" href="${g.link}" target="_blank" rel="noopener">Играть</a>
+          <button class="btn-more" onclick="location.href='#news'">Новости</button>
+        </div>
+      </div>
+    </article>`;
+}
+
+function formatPlayers(n){
+  if (n >= 1_000_000) return (n/1_000_000).toFixed(1).replace('.0','') + 'M';
+  if (n >= 1_000) return (n/1_000).toFixed(1).replace('.0','') + 'K';
+  return String(n);
+}
+
