@@ -5,7 +5,8 @@
     "genre": "Ролевая",
     "tags": ["casual", "roleplay"],
     "image": "images/brookhaven.jpg",
-    "link": "https://www.roblox.com/games/4924922222/Brookhaven-RP"
+    "link": "https://www.roblox.com/games/4924922222/Brookhaven-RP",
+    "players_avg": null
   },
   {
     "id": "99-nights",
@@ -13,7 +14,8 @@
     "genre": "Выживание",
     "tags": ["survival", "co-op", "craft"],
     "image": "images/99-nights.jpg",
-    "link": "https://www.roblox.com/games/79546208627805/99-Nights-in-the-Forest"
+    "link": "https://www.roblox.com/games/79546208627805/99-Nights-in-the-Forest",
+    "players_avg": null
   },
   {
     "id": "adopt-me",
@@ -21,7 +23,8 @@
     "genre": "Ролевая",
     "tags": ["pets", "casual"],
     "image": "images/adopt-me.jpg",
-    "link": "https://www.roblox.com/games/920587237/Adopt-Me"
+    "link": "https://www.roblox.com/games/920587237/Adopt-Me",
+    "players_avg": null
   },
   {
     "id": "doors",
@@ -29,7 +32,8 @@
     "genre": "Хоррор",
     "tags": ["co-op", "puzzles"],
     "image": "images/doors.jpg",
-    "link": "https://www.roblox.com/games/6516141723/DOORS"
+    "link": "https://www.roblox.com/games/6516141723/DOORS",
+    "players_avg": null
   },
   {
     "id": "pet-sim-99",
@@ -37,7 +41,8 @@
     "genre": "Симулятор",
     "tags": ["pets", "grind"],
     "image": "images/pet-simulator-99.jpg",
-    "link": "https://www.roblox.com/games/8737899170/Pet-Simulator-99"
+    "link": "https://www.roblox.com/games/8737899170/Pet-Simulator-99",
+    "players_avg": null
   },
   {
     "id": "mm2",
@@ -45,7 +50,8 @@
     "genre": "Экшен",
     "tags": ["social", "classic"],
     "image": "images/murder-mystery-2.jpg",
-    "link": "https://www.roblox.com/games/142823291/Murder-Mystery-2"
+    "link": "https://www.roblox.com/games/142823291/Murder-Mystery-2",
+    "players_avg": null
   },
   {
     "id": "evade",
@@ -53,7 +59,8 @@
     "genre": "Хоррор",
     "tags": ["nextbots", "co-op"],
     "image": "images/evade.jpg",
-    "link": "https://www.roblox.com/games/9872472334/Evade"
+    "link": "https://www.roblox.com/games/9872472334/Evade",
+    "players_avg": null
   },
   {
     "id": "tower-of-hell",
@@ -61,7 +68,8 @@
     "genre": "Обби",
     "tags": ["parkour", "skill"],
     "image": "images/tower-of-hell.jpg",
-    "link": "https://www.roblox.com/games/1962086868/Tower-of-Hell"
+    "link": "https://www.roblox.com/games/1962086868/Tower-of-Hell",
+    "players_avg": null
   },
   {
     "id": "bedwars",
@@ -69,7 +77,8 @@
     "genre": "PvP",
     "tags": ["teams", "strategy"],
     "image": "images/bedwars.jpg",
-    "link": "https://www.roblox.com/games/6872265039/BedWars"
+    "link": "https://www.roblox.com/games/6872265039/BedWars",
+    "players_avg": null
   },
   {
     "id": "jailbreak",
@@ -77,10 +86,10 @@
     "genre": "Экшен",
     "tags": ["open world", "heists"],
     "image": "images/jailbreak.jpg",
-    "link": "https://www.roblox.com/games/606849621/Jailbreak"
-  }
-]
-[
+    "link": "https://www.roblox.com/games/606849621/Jailbreak",
+    "players_avg": null
+  },
+
   {
     "id": "the-strongest-battlegrounds",
     "title": "The Strongest Battlegrounds",
