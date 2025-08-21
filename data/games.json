@@ -4,80 +4,55 @@
     "title": "Brookhaven 🏡RP",
     "genre": "Ролевая",
     "tags": ["casual", "roleplay"],
-    "players_estimate": 700000,
     "image": "images/brookhaven.jpg",
     "link": "https://www.roblox.com/games/4924922222/Brookhaven-RP"
   },
   {
-    "id": "blade-ball",
-    "title": "Blade Ball",
-    "genre": "Экшен",
-    "tags": ["reaction", "pvp"],
-    "players_estimate": 300000,
-    "image": "",
-    "link": "https://www.roblox.com/games/13772394625/Blade-Ball"
+    "id": "99-nights",
+    "title": "99 Nights in the Forest",
+    "genre": "Выживание",
+    "tags": ["survival", "co-op", "craft"],
+    "image": "images/99-nights.jpg",
+    "link": "https://www.roblox.com/games/79546208627805/99-Nights-in-the-Forest"
   },
   {
     "id": "adopt-me",
     "title": "Adopt Me!",
     "genre": "Ролевая",
     "tags": ["pets", "casual"],
-    "players_estimate": 200000,
     "image": "images/adopt-me.jpg",
     "link": "https://www.roblox.com/games/920587237/Adopt-Me"
-  },
-  {
-    "id": "anime-defenders",
-    "title": "Anime Defenders",
-    "genre": "Стратегия",
-    "tags": ["tower defense", "anime"],
-    "players_estimate": 150000,
-    "image": "",
-    "link": "https://www.roblox.com/games/17625359962/Anime-Defenders"
-  },
-  {
-    "id": "pet-simulator-99",
-    "title": "Pet Simulator 99!",
-    "genre": "Симулятор",
-    "tags": ["pets", "grind"],
-    "players_estimate": 140000,
-    "image": "",
-    "link": "https://www.roblox.com/games/8737899170/Pet-Simulator-99"
-  },
-  {
-    "id": "untitled-boxing",
-    "title": "Untitled Boxing Game",
-    "genre": "Файтинг",
-    "tags": ["pvp", "skill"],
-    "players_estimate": 120000,
-    "image": "",
-    "link": "https://www.roblox.com/games/11979315221/Untitled-Boxing-Game"
   },
   {
     "id": "doors",
     "title": "DOORS 👁️",
     "genre": "Хоррор",
     "tags": ["co-op", "puzzles"],
-    "players_estimate": 100000,
     "image": "images/doors.jpg",
     "link": "https://www.roblox.com/games/6516141723/DOORS"
   },
   {
-    "id": "murder-mystery-2",
+    "id": "pet-sim-99",
+    "title": "Pet Simulator 99!",
+    "genre": "Симулятор",
+    "tags": ["pets", "grind"],
+    "image": "images/pet-simulator-99.jpg",
+    "link": "https://www.roblox.com/games/8737899170/Pet-Simulator-99"
+  },
+  {
+    "id": "mm2",
     "title": "Murder Mystery 2",
     "genre": "Экшен",
     "tags": ["social", "classic"],
-    "players_estimate": 90000,
-    "image": "",
+    "image": "images/murder-mystery-2.jpg",
     "link": "https://www.roblox.com/games/142823291/Murder-Mystery-2"
   },
   {
     "id": "evade",
     "title": "Evade",
     "genre": "Хоррор",
-    "tags": ["chase", "co-op"],
-    "players_estimate": 80000,
-    "image": "",
+    "tags": ["nextbots", "co-op"],
+    "image": "images/evade.jpg",
     "link": "https://www.roblox.com/games/9872472334/Evade"
   },
   {
@@ -85,17 +60,15 @@
     "title": "Tower of Hell",
     "genre": "Обби",
     "tags": ["parkour", "skill"],
-    "players_estimate": 70000,
-    "image": "",
+    "image": "images/tower-of-hell.jpg",
     "link": "https://www.roblox.com/games/1962086868/Tower-of-Hell"
   },
   {
-    "id": "bedwars-classic",
-    "title": "BedWars Classic",
+    "id": "bedwars",
+    "title": "BedWars",
     "genre": "PvP",
     "tags": ["teams", "strategy"],
-    "players_estimate": 60000,
-    "image": "",
+    "image": "images/bedwars.jpg",
     "link": "https://www.roblox.com/games/6872265039/BedWars"
   },
   {
@@ -103,8 +76,7 @@
     "title": "Jailbreak",
     "genre": "Экшен",
     "tags": ["open world", "heists"],
-    "players_estimate": 50000,
-    "image": "",
+    "image": "images/jailbreak.jpg",
     "link": "https://www.roblox.com/games/606849621/Jailbreak"
   }
 ]
