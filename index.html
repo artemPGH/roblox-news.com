@@ -76,40 +76,29 @@
     </section>
 
     <!-- Популярные игры -->
-    <section id="game" class="card">
-      <h2>Популярные игры</h2>
-      <p>Самые интересные и популярные проекты на платформе Roblox.</p>
+  <section id="games">
+  <h2>Популярные игры</h2>
+  <p class="meta">Подборка актуальных хитов Roblox. Используй поиск, фильтры и сортировку.</p>
 
-      <div class="game-grid">
-        <div class="game-card">
-          <img src="images/adopt-me.jpg" alt="Adopt Me!" loading="lazy"/>
-          <h3>Adopt Me!</h3>
-          <p>Ухаживай за питомцами, строй дом и играй с друзьями.</p>
-          <a class="btn danger" href="https://www.roblox.com/games/920587237/Adopt-Me" target="_blank" rel="noopener">Играть</a>
-        </div>
+  <div class="games-toolbar">
+    <input id="gameSearch" type="search" placeholder="Поиск по названию и тегам…" />
+    <select id="gameSort" aria-label="Сортировка">
+      <option value="rank">Сортировать: по популярности</option>
+      <option value="alpha">Сортировать: по алфавиту</option>
+    </select>
+  </div>
 
-        <div class="game-card">
-          <img src="images/brookhaven.jpg" alt="Brookhaven RP" loading="lazy"/>
-          <h3>Brookhaven 🏡RP</h3>
-          <p>Живи обычной жизнью — работай, отдыхай и заводи друзей.</p>
-          <a class="btn danger" href="https://www.roblox.com/games/4924922222/Brookhaven-RP" target="_blank" rel="noopener">Играть</a>
-        </div>
+  <div id="gameFilters" class="chip-row">
+    <!-- чипы генерируются скриптом -->
+  </div>
 
-        <div class="game-card">
-          <img src="images/blox-fruits.jpg" alt="Blox Fruits" loading="lazy"/>
-          <h3>Blox Fruits</h3>
-          <p>Исследуй мир, ешь фрукты и становись сильнее.</p>
-          <a class="btn danger" href="https://www.roblox.com/games/2753915549/Blox-Fruits" target="_blank" rel="noopener">Играть</a>
-        </div>
+  <div id="gameGrid" class="game-grid">
+    <!-- карточки игр -->
+  </div>
 
-        <div class="game-card">
-          <img src="images/doors.jpg" alt="DOORS" loading="lazy"/>
-          <h3>DOORS 👁️</h3>
-          <p>Пробирайся через комнаты и избегай монстров.</p>
-          <a class="btn danger" href="https://www.roblox.com/games/6516141723/DOORS" target="_blank" rel="noopener">Играть</a>
-        </div>
-      </div>
-    </section>
+  <div id="gamePager" class="pager"></div>
+</section>
+
 
     <!-- Последние обновления (1 свежая запись из категории updates) -->
     <section id="updates" class="card">
@@ -155,5 +144,6 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
