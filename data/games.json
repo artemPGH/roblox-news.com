@@ -80,3 +80,95 @@
     "link": "https://www.roblox.com/games/606849621/Jailbreak"
   }
 ]
+[
+  {
+    "id": "the-strongest-battlegrounds",
+    "title": "The Strongest Battlegrounds",
+    "genre": "Экшен",
+    "tags": ["fighting", "arena", "pvp"],
+    "image": "images/the-strongest-battlegrounds.jpg",
+    "link": "https://www.roblox.com/games/10449761463/The-Strongest-Battlegrounds",
+    "players_avg": null
+  },
+  {
+    "id": "anime-defenders",
+    "title": "Anime Defenders",
+    "genre": "Стратегия",
+    "tags": ["tower defense", "anime", "co-op"],
+    "image": "images/anime-defenders.jpg",
+    "link": "https://www.roblox.com/games/17017769292/Anime-Defenders",
+    "players_avg": null
+  },
+  {
+    "id": "bee-swarm-simulator",
+    "title": "Bee Swarm Simulator",
+    "genre": "Симулятор",
+    "tags": ["grind", "quests"],
+    "image": "images/bee-swarm-simulator.jpg",
+    "link": "https://www.roblox.com/games/1537690962/Bee-Swarm-Simulator",
+    "players_avg": null
+  },
+  {
+    "id": "arsenal",
+    "title": "Arsenal",
+    "genre": "Шутер",
+    "tags": ["fps", "arcade", "pvp"],
+    "image": "images/arsenal.jpg",
+    "link": "https://www.roblox.com/games/286090429/Arsenal",
+    "players_avg": null
+  },
+  {
+    "id": "tower-defense-simulator",
+    "title": "Tower Defense Simulator",
+    "genre": "Стратегия",
+    "tags": ["tower defense", "co-op"],
+    "image": "images/tower-defense-simulator.jpg",
+    "link": "https://www.roblox.com/games/3260590327/Tower-Defense-Simulator",
+    "players_avg": null
+  },
+  {
+    "id": "survive-the-killer",
+    "title": "Survive the Killer!",
+    "genre": "Хоррор",
+    "tags": ["co-op", "asymmetrical"],
+    "image": "images/survive-the-killer.jpg",
+    "link": "https://www.roblox.com/games/4580204640/Survive-the-Killer",
+    "players_avg": null
+  },
+  {
+    "id": "shindo-life",
+    "title": "Shindo Life",
+    "genre": "RPG",
+    "tags": ["open world", "ninja"],
+    "image": "images/shindo-life.jpg",
+    "link": "https://www.roblox.com/games/4616652839/Shindo-Life-240",
+    "players_avg": null
+  },
+  {
+    "id": "blox-fruits",
+    "title": "Blox Fruits",
+    "genre": "Экшен",
+    "tags": ["adventure", "pvp"],
+    "image": "images/blox-fruits.jpg",
+    "link": "https://www.roblox.com/games/2753915549/Blox-Fruits",
+    "players_avg": null
+  },
+  {
+    "id": "steal-a-brainrot",
+    "title": "Steal a Brainrot",
+    "genre": "Социальная",
+    "tags": ["trolling", "trading"],
+    "image": "images/steal-a-brainrot.jpg",
+    "link": "https://www.roblox.com/games/109983668079237/Steal-a-Brainrot",
+    "players_avg": null
+  },
+  {
+    "id": "grow-a-garden",
+    "title": "Grow a Garden",
+    "genre": "Симулятор",
+    "tags": ["farming", "casual"],
+    "image": "images/grow-a-garden.jpg",
+    "link": "https://www.roblox.com/games/126884695634066/Grow-a-Garden",
+    "players_avg": null
+  }
+]
